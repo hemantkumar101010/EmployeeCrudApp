@@ -1,0 +1,105 @@
+﻿@model IEnumerable<EmployeeMVC.Models.EmployeeViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Employee List In The Organization</h1>
+
+<form asp-controller="Employee" asp-action="Index" method="get">
+    <p>
+        <div class="row">
+            <div class="col-md-6">
+                        <input type="search" placeholder="Search employees by name or city..." name="searchEmployee" value="@ViewData["EmployeeInfo"]" class="form-control mb-2" />                               
+            </div>
+            <div class="col-md-6">
+                 <input type="submit" value="Search" class="btn btn-outline-dark" /> |
+                  <a asp-action="Index" class="btn btn-outline-primary">Employee List</a> |
+                      <a asp-action="Create" class="btn btn-outline-danger">Create New Record</a>
+             </div>
+        </div>
+
+    </p>
+</form>
+@if(TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+    <strong>Success !</strong> @TempData["AlertMessage"]
+</div>
+}
+
+
+<table class="table table-striped ">
+    <thead >
+        <tr>
+              <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+             <th style="font-weight:bold">
+                Full Name
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dob)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody >
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+             <td>
+               @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.Dob)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-dark">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
